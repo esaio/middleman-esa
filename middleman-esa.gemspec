@@ -5,20 +5,16 @@ Gem::Specification.new do |s|
   s.name        = "middleman-esa"
   s.version     = "0.0.1"
   s.platform    = Gem::Platform::RUBY
-  # s.authors     = ["Your Name"]
-  # s.email       = ["email@example.com"]
-  # s.homepage    = "http://example.com"
-  # s.summary     = %q{A short summary of your extension}
-  # s.description = %q{A longer description of your extension}
+  s.authors     = ["fukayatsu"]
+  s.email       = ["fukayatsu@gmail.com"]
+  s.homepage    = "https://github.com/esaio/middleman-esa"
+  s.summary     = %q{esa engine for Middleman}
+  s.description = %q{esa engine for Middleman}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  
-  # The version of middleman-core your extension depends on
-  s.add_runtime_dependency("middleman-core", [">= 3.4.0"])
-  
-  # Additional dependencies
-  # s.add_runtime_dependency("gem-name", "gem-version")
+
+  s.add_runtime_dependency "middleman-core", "~> 3.4.0"
 end
