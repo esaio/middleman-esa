@@ -7,8 +7,12 @@ module Middleman
     option :per_page, 10, 'Number of articles per page when paginating'
     option :page_link, 'page/{num}', 'Path to append for additional pages when paginating'
     option :prefix, nil, 'Prefix to mount the esa'
+    option :layout, 'layout', 'Article-specific layout'
+    option :taglink, 'tags/{tag}.html', 'Path tag pages are generated at.'
+    option :tag_template, nil, 'Template path (no template extension) for tag archive pages.'
 
     attr_reader :data
+    attr_reader :tag_pages
 
     self.defined_helpers = [Middleman::Esa::Helpers]
 
@@ -27,6 +31,16 @@ module Middleman
     def after_configuration
       @app.esa_instance = self
       @data = Esa::EsaData.new(@app, self, options)
+
+      @app.sitemap.register_resource_list_manipulator(:esa_articles, @data, false)
+
+      if options.tag_template
+        @app.ignore options.tag_template
+
+        require 'middleman-esa/tag_pages'
+        @tag_pages = Esa::TagPages.new(@app, self)
+        @app.sitemap.register_resource_list_manipulator(:esa_tags, @tag_pages, false)
+      end
     end
 
     # A Sitemap Manipulator

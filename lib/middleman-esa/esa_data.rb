@@ -31,9 +31,27 @@ module Middleman
         @_articles = []
         resources.each do |resource|
           article = convert_to_article(resource)
+          next unless article.date
           @_articles << article
-          used_resources << resource
         end
+        # require "pry"; binding.pry
+      end
+
+      def tags
+        tags = {}
+        @_articles.each do |article|
+          article.tags.each do |tag|
+            tags[tag] ||= []
+            tags[tag] << article
+          end
+        end
+
+        # Sort each tag's list of articles
+        tags.each do |tag, articles|
+          tags[tag] = articles.sort_by(&:date).reverse
+        end
+
+        tags
       end
 
       def inspect

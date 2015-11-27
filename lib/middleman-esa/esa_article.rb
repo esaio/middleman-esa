@@ -26,12 +26,6 @@ module Middleman
         end
 
         content = super(opts, locs, &block)
-
-        unless opts[:keep_separator]
-          content.sub!(esa_options.summary_separator, "")
-        end
-
-        content
       end
 
       # The title of the article, set from frontmatter.
@@ -83,6 +77,10 @@ module Middleman
       # @return [Middleman::Sitemap::Resource]
       def next_article
         esa_data.articles.reverse.find { |a| a.date > self.date }
+      end
+
+      def body
+        render layout: false
       end
 
       # This is here to prevent out-of-memory on exceptions.

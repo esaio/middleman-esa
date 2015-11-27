@@ -41,6 +41,16 @@ module Middleman
         return nil unless article.is_a?(EsaArticle)
         article
       end
+
+      def tag_path(tag)
+        build_url esa_controller.tag_pages.link(tag)
+      end
+
+      private
+
+      def build_url(path)
+        sitemap.find_resource_by_path(path).try(:url)
+      end
     end
   end
 end

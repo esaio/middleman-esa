@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_runtime_dependency "middleman-core", "~> 3.4.0"
+  s.add_dependency "addressable", "~> 2.3.5"
 end
